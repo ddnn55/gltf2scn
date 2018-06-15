@@ -1,0 +1,21 @@
+{
+  "Mac" : [
+    {
+      "name" : "GLTFSceneKit",
+      "hash" : "6effea164bfebeb411a7104571f1c5b40d9b8dabef345bc4804652533ff49bb7"
+    }
+  ],
+  "watchOS" : [
+
+  ],
+  "tvOS" : [
+
+  ],
+  "commitish" : "v0.1.3",
+  "iOS" : [
+    {
+      "name" : "GLTFSceneKit",
+      "hash" : "871a0633d910737f65560025ce055e9e5a8942289125a124bfd546758b481aba"
+    }
+  ]
+}
