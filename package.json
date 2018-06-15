@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "dev-null": "^0.1.1"
+  },
+  "devDependencies": {
+    "base-64": "^0.1.0",
+    "recursive-readdir": "^2.2.2"
+  }
+}

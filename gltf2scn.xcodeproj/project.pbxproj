@@ -49,6 +49,7 @@
 		EC8A801820D41A5000ABEEAA /* ExtensionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8A801520D41A4F00ABEEAA /* ExtensionList.swift */; };
 		EC8A801920D41A5000ABEEAA /* GLTFKHRMaterialsCommon_GLTFKHRMaterialsCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8A801620D41A5000ABEEAA /* GLTFKHRMaterialsCommon_GLTFKHRMaterialsCommon.swift */; };
 		EC8A801A20D41A5000ABEEAA /* GLTFKHRMaterialsPbrSpecularGlossiness_GLTFKHRMaterialsPbrSpecularGlossiness.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8A801720D41A5000ABEEAA /* GLTFKHRMaterialsPbrSpecularGlossiness_GLTFKHRMaterialsPbrSpecularGlossiness.swift */; };
+		EC8A801C20D443FB00ABEEAA /* gltf2scn_GLTFSceneKitShaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8A801B20D443FB00ABEEAA /* gltf2scn_GLTFSceneKitShaders.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -111,6 +112,7 @@
 		EC8A801520D41A4F00ABEEAA /* ExtensionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExtensionList.swift; path = GLTFSceneKit/Source/Common/schema/extensions/ExtensionList.swift; sourceTree = "<group>"; };
 		EC8A801620D41A5000ABEEAA /* GLTFKHRMaterialsCommon_GLTFKHRMaterialsCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GLTFKHRMaterialsCommon_GLTFKHRMaterialsCommon.swift; path = GLTFSceneKit/Source/Common/schema/extensions/KHR_materials_common/GLTFKHRMaterialsCommon_GLTFKHRMaterialsCommon.swift; sourceTree = "<group>"; };
 		EC8A801720D41A5000ABEEAA /* GLTFKHRMaterialsPbrSpecularGlossiness_GLTFKHRMaterialsPbrSpecularGlossiness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GLTFKHRMaterialsPbrSpecularGlossiness_GLTFKHRMaterialsPbrSpecularGlossiness.swift; path = GLTFSceneKit/Source/Common/schema/extensions/KHR_materials_pbrSpecularGlossiness/GLTFKHRMaterialsPbrSpecularGlossiness_GLTFKHRMaterialsPbrSpecularGlossiness.swift; sourceTree = "<group>"; };
+		EC8A801B20D443FB00ABEEAA /* gltf2scn_GLTFSceneKitShaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gltf2scn_GLTFSceneKitShaders.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 		EC8A7F6C20D04A0E00ABEEAA /* gltf2scn */ = {
 			isa = PBXGroup;
 			children = (
+				EC8A801B20D443FB00ABEEAA /* gltf2scn_GLTFSceneKitShaders.swift */,
 				EC8A7F6D20D04A0E00ABEEAA /* main.swift */,
 			);
 			path = gltf2scn;
@@ -290,6 +293,7 @@
 				EC8A801320D4199000ABEEAA /* GLTFAnimation.swift in Sources */,
 				EC8A801420D4199000ABEEAA /* GLTFGlTFChildOfRootProperty.swift in Sources */,
 				EC8A801820D41A5000ABEEAA /* ExtensionList.swift in Sources */,
+				EC8A801C20D443FB00ABEEAA /* gltf2scn_GLTFSceneKitShaders.swift in Sources */,
 				EC8A801920D41A5000ABEEAA /* GLTFKHRMaterialsCommon_GLTFKHRMaterialsCommon.swift in Sources */,
 				EC8A801A20D41A5000ABEEAA /* GLTFKHRMaterialsPbrSpecularGlossiness_GLTFKHRMaterialsPbrSpecularGlossiness.swift in Sources */,
 			);
