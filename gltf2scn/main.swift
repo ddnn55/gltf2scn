@@ -8,22 +8,30 @@
 
 import Foundation
 import SceneKit
-//import GLTFSceneKit
 
-//let arg = String.fromCString(C_ARGV[0])
+if(CommandLine.arguments.count < 2) {
+    print("Usage: gltf2scn <path to .glb>")
+    exit(0)
+}
 
-//let path = CommandLine.arguments[1]
-let path = "/Users/205740/go/src/github.com/KhronosGroup/glTF-Sample-Models/2.0/Corset/glTF/Corset.gltf"
+let path = CommandLine.arguments[1]
+
+let sceneName = URL(fileURLWithPath: path).deletingPathExtension().lastPathComponent
 
 var scene: SCNScene
 do {
     let sceneSource = try GLTFSceneSource(path: path)
     scene = try sceneSource.scene()
+    let outputPath = "\(sceneName).scn"
+    let success = scene.write(to: URL(fileURLWithPath: outputPath), options: nil, delegate: nil, progressHandler: nil)
+    if(success) {
+        print("Saved \(outputPath)")
+    }
+    else {
+        print("Error while trying to save \(outputPath)")
+        exit(1)
+    }
 } catch {
-    print("error while converting scene: \(error.localizedDescription)")
-//    return
+    print("Error while converting scene: \(error.localizedDescription)")
+    exit(1)
 }
-
-print("hi there!")
-print(path)
-
