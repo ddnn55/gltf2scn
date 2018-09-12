@@ -9,3 +9,18 @@ See Releases ☝️
 ```
 ./gltf2scn my-scene.glb
 ```
+## Develop
+
+Install carthage if you don't have it.
+
+```
+brew install carthage
+```
+
+Install deps
+
+```
+carthage bootstrap
+```
+
+Develop!
