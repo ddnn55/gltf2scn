@@ -5,7 +5,7 @@ var path = require('path');
 var fs = require('fs');
 // var base64 = require('base-64');
 
-recursive("GLTFSceneKit", function (err, files) {
+recursive(".", function (err, files) {
   // `files` is an array of file paths
   const shaderPaths = files.filter(filePath => path.parse(filePath).ext === '.shader');
   // console.log(shaderPaths);
