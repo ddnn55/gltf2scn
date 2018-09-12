@@ -33,4 +33,11 @@ Install deps
 carthage bootstrap
 ```
 
+Preprocess shaders
+
+```
+yarn
+./bin/bundle_shaders.js
+```
+
 Develop!
