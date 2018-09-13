@@ -10,19 +10,19 @@ import Foundation
 import SceneKit
 
 if(CommandLine.arguments.count < 2) {
-    print("Usage: gltf2scn <path to .glb> [.scn output path]")
+    print("Usage: gltf2scn <path to .glb>")
     exit(0)
 }
 
 let path = CommandLine.arguments[1]
-let sceneName = URL(fileURLWithPath: path).deletingPathExtension().lastPathComponent
 
-let outputPath = CommandLine.arguments.count < 3 ? "\(sceneName).scn" : CommandLine.arguments[2]
+let sceneName = URL(fileURLWithPath: path).deletingPathExtension().lastPathComponent
 
 var scene: SCNScene
 do {
     let sceneSource = try GLTFSceneSource(path: path)
     scene = try sceneSource.scene()
+    let outputPath = "\(sceneName).scn"
     let success = scene.write(to: URL(fileURLWithPath: outputPath), options: nil, delegate: nil, progressHandler: nil)
     if(success) {
         print("Saved \(outputPath)")

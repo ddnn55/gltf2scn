@@ -2,7 +2,7 @@
   "Mac" : [
     {
       "name" : "GLTFSceneKit",
-      "hash" : "43f206703dc4e6a1f94337123746235db74d789da3f5966f72aca03dfd43b11e"
+      "hash" : "6effea164bfebeb411a7104571f1c5b40d9b8dabef345bc4804652533ff49bb7"
     }
   ],
   "watchOS" : [
@@ -15,7 +15,7 @@
   "iOS" : [
     {
       "name" : "GLTFSceneKit",
-      "hash" : "abcde6963faba12d3d59c67b149f7eaa7fc1df879a4d4605edb2b7c583762911"
+      "hash" : "871a0633d910737f65560025ce055e9e5a8942289125a124bfd546758b481aba"
     }
   ]
 }

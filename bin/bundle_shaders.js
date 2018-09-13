@@ -5,7 +5,7 @@ var path = require('path');
 var fs = require('fs');
 // var base64 = require('base-64');
 
-recursive(".", function (err, files) {
+recursive(path.join(__dirname, '../Carthage/Checkouts/GLTFSceneKit/Source/Common'), function (err, files) {
   // `files` is an array of file paths
   const shaderPaths = files.filter(filePath => path.parse(filePath).ext === '.shader');
   // console.log(shaderPaths);
@@ -19,14 +19,13 @@ recursive(".", function (err, files) {
  * 
  */
 
-
-    var gltf2scn_GLTFSceneKitShaders = [${
-      shaderPaths.map(shaderPath => {
-        const shaderSource = fs.readFileSync(shaderPath, {encoding: 'utf8'});
-        const shaderName = path.parse(shaderPath).name;
-        return `"${shaderName}": """\n${shaderSource}\n"""`;
-      }).join(',\n')
-    }]
+${
+    shaderPaths.map(shaderPath => {
+      const shaderSource = fs.readFileSync(shaderPath, {encoding: 'utf8'});
+      const shaderName = path.parse(shaderPath).name;
+      return `let gltf2scn_${shaderName} = """\n${shaderSource}\n"""`;
+    }).join('\n\n')
+  }
   `;
 
   const outputPath = path.join(__dirname, '../gltf2scn/gltf2scn_GLTFSceneKitShaders.swift');
