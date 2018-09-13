@@ -21,23 +21,13 @@ Write .scn to specific path
 
 ## Develop
 
-Install carthage if you don't have it.
+[GLTFSceneKit](https://github.com/magicien/GLTFSceneKit) does the real work. It was installed here using Carthage, but I couldn't figure out how to make the .framework work in a command line binary, so I moved the GLTFSceneKit files straight into this repo, and changed the shaders from being bundle files to being inline Swift strings.
 
-```
-brew install carthage
-```
+Hence no need to run `carthage`.
 
-Install deps
-
-```
-carthage bootstrap
-```
-
-Preprocess shaders
+You can regenerate the shader Swift strings via:
 
 ```
 yarn
 ./bin/bundle_shaders.js
 ```
-
-Develop!
