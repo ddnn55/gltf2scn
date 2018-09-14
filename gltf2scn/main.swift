@@ -10,20 +10,31 @@ import Foundation
 import SceneKit
 
 if(CommandLine.arguments.count < 2) {
-    print("Usage: gltf2scn <path to .glb>")
+    print("Usage: gltf2scn <path to .glb> [.scn output path]")
     exit(0)
 }
 
 let path = CommandLine.arguments[1]
-
 let sceneName = URL(fileURLWithPath: path).deletingPathExtension().lastPathComponent
+
+let outputPath = CommandLine.arguments.count < 3 ? "\(sceneName).scn" : CommandLine.arguments[2]
+
+print("creating exportDelegate")
+
+class ExportDelegate: NSObject, SCNSceneExportDelegate {
+    func write(_ image: NSImage, withSceneDocumentURL documentURL: URL, originalImageURL: URL?) -> URL? {
+        print("hello from image export func!")
+        return URL(string: "https://placekitten.com/g/1024/1024")
+    }
+}
+
+let exportDelegate = ExportDelegate()
 
 var scene: SCNScene
 do {
     let sceneSource = try GLTFSceneSource(path: path)
     scene = try sceneSource.scene()
-    let outputPath = "\(sceneName).scn"
-    let success = scene.write(to: URL(fileURLWithPath: outputPath), options: nil, delegate: nil, progressHandler: nil)
+    let success = scene.write(to: URL(fileURLWithPath: outputPath), options: nil, delegate: exportDelegate, progressHandler: nil)
     if(success) {
         print("Saved \(outputPath)")
     }
