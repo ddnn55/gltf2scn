@@ -198,6 +198,7 @@
 				EC8A7F6620D04A0E00ABEEAA /* Sources */,
 				EC8A7F6720D04A0E00ABEEAA /* Frameworks */,
 				EC8A7F6820D04A0E00ABEEAA /* CopyFiles */,
+				EC99B3F7215458E60044F8E6 /* Create Release Archive */,
 			);
 			buildRules = (
 			);
@@ -239,6 +240,27 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EC99B3F7215458E60044F8E6 /* Create Release Archive */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Create Release Archive";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#tar -zcvf tar-archive-name.tar.gz source-folder-name\nenv\nmkdir -p $PROJECT_DIR/release\ntar -C $BUILT_PRODUCTS_DIR -zcvf $PROJECT_DIR/release/gltf2scn.tar.gz gltf2scn\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EC8A7F6620D04A0E00ABEEAA /* Sources */ = {
