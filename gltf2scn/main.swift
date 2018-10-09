@@ -19,52 +19,68 @@ import SceneKit
 
 
 command(
-    Option<String>("merge", default: "", description: "Path to a .scn file to merge with the input .glb"),
-    Option<String>("merge-parent-node", default: "", description: "Name of node in .glb scene to which .scn scene will be parented"),
+    Option<String>("template", default: "", description: "Path to a .scn file into which the .glb will be inserted"),
+    Option<String>("template-parent-node", default: "", description: "Name of node in the template .scn under which the contents of the .glb will be added"),
     Argument<String>("path", description: "Path to input .glb"),
     Argument<String>("outputPath", description: ".scn output path")
-) { mergePath, mergeParentNode, path, outputPath in
-    
-//    print("input \(path) output: \(outputPath) merge: \(merge)")
+) { templatePath, templateParentNode, path, outputPath in
     
 //    let exportDelegate = ExportDelegate()
     
     var scene: SCNScene
+    var templateScene = SCNScene()
+    var parentNode: SCNNode
     do {
         let sceneSource = try GLTFSceneSource(path: path)
         scene = try sceneSource.scene()
         
-        if mergePath != "" {
-            if mergeParentNode == "" {
-                print("Usage error: if you pass --merge you must also pass --merge-parent-node")
+        if templatePath != "" {
+            if templateParentNode == "" {
+                print("Usage error: if you pass --template you must also pass --template-parent-node")
                 exit(1)
             }
-            print("Adding \(mergePath) to \(mergeParentNode)")
-            let mergeUrl = URL(fileURLWithPath: mergePath)
+            print("Adding \(templatePath) to \(templateParentNode)")
+            let templateUrl = URL(fileURLWithPath: templatePath)
             do {
-                let mergeScene = try SCNScene(url: mergeUrl)
-                let potentialParentNodes = scene.rootNode.childNodes(passingTest: {node, ptr in node.name == mergeParentNode})
-                if potentialParentNodes.count < 1 {
-                    print("Usage error: could not find a node named \(mergeParentNode) in \(path)")
-                    exit(1)
-                }
-                if potentialParentNodes.count > 1 {
-                    print("Usage warning: found \(potentialParentNodes.count) nodes named \(mergeParentNode) in \(path). Will use the first one we found.")
-                }
-                let parentNode = potentialParentNodes[0]
+                templateScene = try SCNScene(url: templateUrl)
+//                let potentialParentNodes = scene.rootNode.childNodes(passingTest: {node, ptr in node.name == templateParentNode})
+//                if potentialParentNodes.count < 1 {
+//                    print("Usage error: could not find a node named \(templateParentNode) in \(path)")
+//                    exit(1)
+//                }
+//                if potentialParentNodes.count > 1 {
+//                    print("Usage warning: found \(potentialParentNodes.count) nodes named \(templateParentNode) in \(path). Will use the first one we found.")
+//                }
                 
-                mergeScene.rootNode.childNodes.forEach { node in
-                    parentNode.addChildNode(node)
-                }
+                // add .scn to .glb's VRN
+//                let parentNode = potentialParentNodes[0]
+//                templateScene.rootNode.childNodes.forEach { node in
+//                    parentNode.addChildNode(node)
+//                }
                 
             }
             catch {
-                print("Error while loading \(mergePath). Does it exist? Is it a valid SceneKit scene?")
+                print("Error while loading \(templatePath). Does it exist? Is it a valid SceneKit scene?")
                 exit(1)
             }
+            
+            guard let _parentNode = templateScene.rootNode.childNode(withName: templateParentNode, recursively: true) else {
+                print("Error: could not find node \(templateParentNode) in \(templatePath)")
+                exit(3)
+            }
+            parentNode = _parentNode
+        }
+        else {
+            parentNode = templateScene.rootNode
         }
         
-        let success = scene.write(to: URL(fileURLWithPath: outputPath), options: nil, delegate: nil, progressHandler: nil)
+        // add .glb to .scn's templateParentNode
+        scene.rootNode.childNodes.forEach { node in
+            parentNode.addChildNode(node)
+        }
+        
+        
+        let success = templateScene.write(to: URL(fileURLWithPath: outputPath), options: nil, delegate: nil, progressHandler: nil)
         if(success) {
             print("Saved \(outputPath)")
         }
