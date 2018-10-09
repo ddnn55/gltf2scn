@@ -42,7 +42,17 @@ command(
             print("Adding \(mergePath) to \(mergeParentNode)")
             let mergeUrl = URL(fileURLWithPath: mergePath)
             do {
-                try SCNScene(url: mergeUrl)
+                let mergeScene = try SCNScene(url: mergeUrl)
+                let potentialParentNodes = scene.rootNode.childNodes(passingTest: {node, ptr in node.name == mergeParentNode})
+                if potentialParentNodes.count < 1 {
+                    print("Usage error: could not find a node named \(mergeParentNode) in \(path)")
+                    exit(1)
+                }
+                if potentialParentNodes.count > 1 {
+                    print("Usage warning: found \(potentialParentNodes.count) nodes named \(mergeParentNode) in \(path). Will use the first one we found.")
+                }
+                let parentNode = potentialParentNodes[0]
+                parentNode.addChildNode(mergeScene.rootNode)
             }
             catch {
                 print("Error while loading \(mergePath). Does it exist? Is it a valid SceneKit scene?")
