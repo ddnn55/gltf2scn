@@ -9,6 +9,24 @@
 import Foundation
 import SceneKit
 
+
+
+
+
+command(
+    Option<String>("merge", default: "/dev/null", description: "Path a .scn file to merge with the input .glb"),
+    Argument<String>("path", description: "Path to input .glb"),
+    Argument<String>("outputPath", description: ".scn output path")
+) { merge, path, outputPath in
+    print("input \(path) output: \(outputPath) merge: \(merge)")
+}.run()
+
+
+
+
+
+
+
 if(CommandLine.arguments.count < 2) {
     print("Usage: gltf2scn <path to .glb> [.scn output path]")
     exit(0)

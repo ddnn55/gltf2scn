@@ -50,6 +50,15 @@
 		EC4A0B63214AD06300E35159 /* GLTFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4A0B3A214AD06300E35159 /* GLTFExtension.swift */; };
 		EC8A7F6E20D04A0E00ABEEAA /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8A7F6D20D04A0E00ABEEAA /* main.swift */; };
 		EC8A801C20D443FB00ABEEAA /* gltf2scn_GLTFSceneKitShaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8A801B20D443FB00ABEEAA /* gltf2scn_GLTFSceneKitShaders.swift */; };
+		ECBC41F9216D0DE400684009 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBC41F0216D0DE300684009 /* Group.swift */; };
+		ECBC41FA216D0DE400684009 /* CommandType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBC41F1216D0DE300684009 /* CommandType.swift */; };
+		ECBC41FB216D0DE400684009 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBC41F2216D0DE300684009 /* Error.swift */; };
+		ECBC41FC216D0DE400684009 /* ArgumentDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBC41F3216D0DE300684009 /* ArgumentDescription.swift */; };
+		ECBC41FD216D0DE400684009 /* Commands.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBC41F4216D0DE300684009 /* Commands.swift */; };
+		ECBC41FE216D0DE400684009 /* CommandRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBC41F5216D0DE300684009 /* CommandRunner.swift */; };
+		ECBC41FF216D0DE400684009 /* ArgumentConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBC41F6216D0DE300684009 /* ArgumentConvertible.swift */; };
+		ECBC4200216D0DE400684009 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBC41F7216D0DE300684009 /* Command.swift */; };
+		ECBC4201216D0DE400684009 /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBC41F8216D0DE300684009 /* ArgumentParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -109,6 +118,15 @@
 		EC8A7F6A20D04A0E00ABEEAA /* gltf2scn */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gltf2scn; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC8A7F6D20D04A0E00ABEEAA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		EC8A801B20D443FB00ABEEAA /* gltf2scn_GLTFSceneKitShaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gltf2scn_GLTFSceneKitShaders.swift; sourceTree = "<group>"; };
+		ECBC41F0216D0DE300684009 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		ECBC41F1216D0DE300684009 /* CommandType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandType.swift; sourceTree = "<group>"; };
+		ECBC41F2216D0DE300684009 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		ECBC41F3216D0DE300684009 /* ArgumentDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentDescription.swift; sourceTree = "<group>"; };
+		ECBC41F4216D0DE300684009 /* Commands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commands.swift; sourceTree = "<group>"; };
+		ECBC41F5216D0DE300684009 /* CommandRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandRunner.swift; sourceTree = "<group>"; };
+		ECBC41F6216D0DE300684009 /* ArgumentConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentConvertible.swift; sourceTree = "<group>"; };
+		ECBC41F7216D0DE300684009 /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		ECBC41F8216D0DE300684009 /* ArgumentParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +143,7 @@
 		EC8A7F6120D04A0E00ABEEAA = {
 			isa = PBXGroup;
 			children = (
+				ECBC41EC216D0CD800684009 /* Lib */,
 				EC4A0B30214AD06100E35159 /* ExtensionList.swift */,
 				EC4A0B1D214AD05D00E35159 /* GLTFAccessor.swift */,
 				EC4A0B1B214AD05C00E35159 /* GLTFAccessorSparse.swift */,
@@ -186,6 +205,30 @@
 				EC8A7F6D20D04A0E00ABEEAA /* main.swift */,
 			);
 			path = gltf2scn;
+			sourceTree = "<group>";
+		};
+		ECBC41EC216D0CD800684009 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				ECBC41EF216D0DD100684009 /* Commander */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		ECBC41EF216D0DD100684009 /* Commander */ = {
+			isa = PBXGroup;
+			children = (
+				ECBC41F6216D0DE300684009 /* ArgumentConvertible.swift */,
+				ECBC41F3216D0DE300684009 /* ArgumentDescription.swift */,
+				ECBC41F8216D0DE300684009 /* ArgumentParser.swift */,
+				ECBC41F7216D0DE300684009 /* Command.swift */,
+				ECBC41F5216D0DE300684009 /* CommandRunner.swift */,
+				ECBC41F4216D0DE300684009 /* Commands.swift */,
+				ECBC41F1216D0DE300684009 /* CommandType.swift */,
+				ECBC41F2216D0DE300684009 /* Error.swift */,
+				ECBC41F0216D0DE300684009 /* Group.swift */,
+			);
+			path = Commander;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,18 +312,22 @@
 			files = (
 				EC8A7F6E20D04A0E00ABEEAA /* main.swift in Sources */,
 				EC4A0B44214AD06300E35159 /* GLTFAccessorSparse.swift in Sources */,
+				ECBC41FB216D0DE400684009 /* Error.swift in Sources */,
 				EC4A0B60214AD06300E35159 /* GLTFBuffer.swift in Sources */,
 				EC4A0B5E214AD06300E35159 /* GLTFGlTFProperty.swift in Sources */,
 				EC4A0B4F214AD06300E35159 /* GLTFBufferView.swift in Sources */,
 				EC4A0B47214AD06300E35159 /* GLTFTexture.swift in Sources */,
 				EC4A0B4E214AD06300E35159 /* GLTFGlTF.swift in Sources */,
 				EC4A0B58214AD06300E35159 /* GLTFScene.swift in Sources */,
+				ECBC41FC216D0DE400684009 /* ArgumentDescription.swift in Sources */,
 				EC4A0B49214AD06300E35159 /* GLTFCamera.swift in Sources */,
 				EC4A0B48214AD06300E35159 /* GLTFMesh.swift in Sources */,
 				EC4A0B63214AD06300E35159 /* GLTFExtension.swift in Sources */,
+				ECBC41F9216D0DE400684009 /* Group.swift in Sources */,
 				EC4A0B50214AD06300E35159 /* GLTFKHRMaterialsCommon_GLTFKHRMaterialsCommon.swift in Sources */,
 				EC4A0B41214AD06300E35159 /* GLTFUnarchiver.swift in Sources */,
 				EC4A0B52214AD06300E35159 /* GLTFSkin.swift in Sources */,
+				ECBC4200216D0DE400684009 /* Command.swift in Sources */,
 				EC4A0B46214AD06300E35159 /* GLTFAccessor.swift in Sources */,
 				EC4A0B3D214AD06300E35159 /* GLTFImage.swift in Sources */,
 				EC4A0B54214AD06300E35159 /* GLTFFunctions.swift in Sources */,
@@ -298,17 +345,22 @@
 				EC4A0B57214AD06300E35159 /* GLTFAccessorSparseIndices.swift in Sources */,
 				EC4A0B3C214AD06300E35159 /* GLTFAnimationSampler.swift in Sources */,
 				EC4A0B42214AD06300E35159 /* GLTFMaterialPbrMetallicRoughness.swift in Sources */,
+				ECBC4201216D0DE400684009 /* ArgumentParser.swift in Sources */,
 				EC4A0B40214AD06300E35159 /* GLTFKHRMaterialsPbrSpecularGlossiness_GLTFKHRMaterialsPbrSpecularGlossiness.swift in Sources */,
+				ECBC41FA216D0DE400684009 /* CommandType.swift in Sources */,
 				EC4A0B4D214AD06300E35159 /* GLTFAccessorSparseValues.swift in Sources */,
 				EC4A0B4C214AD06300E35159 /* GLTFSceneSource.swift in Sources */,
 				EC4A0B3B214AD06300E35159 /* GLTFAnimationChannel.swift in Sources */,
 				EC4A0B59214AD06300E35159 /* ExtensionList.swift in Sources */,
 				EC4A0B5B214AD06300E35159 /* GLTFMeshPrimitive.swift in Sources */,
+				ECBC41FE216D0DE400684009 /* CommandRunner.swift in Sources */,
 				EC4A0B55214AD06300E35159 /* GLTFCameraPerspective.swift in Sources */,
 				EC4A0B3E214AD06300E35159 /* GLTFCameraOrthographic.swift in Sources */,
+				ECBC41FD216D0DE400684009 /* Commands.swift in Sources */,
 				EC4A0B43214AD06300E35159 /* GLTFNode.swift in Sources */,
 				EC4A0B51214AD06300E35159 /* GLTFSampler.swift in Sources */,
 				EC4A0B5C214AD06300E35159 /* GLTFExtras.swift in Sources */,
+				ECBC41FF216D0DE400684009 /* ArgumentConvertible.swift in Sources */,
 				EC4A0B5F214AD06300E35159 /* GLTFAnimation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -434,7 +486,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6823E8J76V;
+				DEVELOPMENT_TEAM = FL458598BU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -449,7 +501,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6823E8J76V;
+				DEVELOPMENT_TEAM = FL458598BU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
