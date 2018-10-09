@@ -1653,7 +1653,6 @@ public class GLTFUnarchiver {
     
     func loadScene() throws -> SCNScene {
         if let sceneIndex = self.json.scene {
-            print("in here")
             return try self.loadScene(index: sceneIndex)
         }
         print("in there")

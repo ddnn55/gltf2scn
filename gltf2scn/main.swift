@@ -19,11 +19,13 @@ import SceneKit
 
 
 command(
-    Option<String>("merge", default: "/dev/null", description: "Path a .scn file to merge with the input .glb"),
+    Option<String>("merge", default: "", description: "Path to a .scn file to merge with the input .glb"),
+    Option<String>("merge-parent-node", default: "", description: "Name of node in .glb scene to which .scn scene will be parented"),
     Argument<String>("path", description: "Path to input .glb"),
     Argument<String>("outputPath", description: ".scn output path")
-) { merge, path, outputPath in
-    print("input \(path) output: \(outputPath) merge: \(merge)")
+) { mergePath, mergeParentNode, path, outputPath in
+    
+//    print("input \(path) output: \(outputPath) merge: \(merge)")
     
 //    let exportDelegate = ExportDelegate()
     
@@ -31,6 +33,23 @@ command(
     do {
         let sceneSource = try GLTFSceneSource(path: path)
         scene = try sceneSource.scene()
+        
+        if mergePath != "" {
+            if mergeParentNode == "" {
+                print("Usage error: if you pass --merge you must also pass --merge-parent-node")
+                exit(1)
+            }
+            print("Adding \(mergePath) to \(mergeParentNode)")
+            let mergeUrl = URL(fileURLWithPath: mergePath)
+            do {
+                try SCNScene(url: mergeUrl)
+            }
+            catch {
+                print("Error while loading \(mergePath). Does it exist? Is it a valid SceneKit scene?")
+                exit(1)
+            }
+        }
+        
         let success = scene.write(to: URL(fileURLWithPath: outputPath), options: nil, delegate: nil, progressHandler: nil)
         if(success) {
             print("Saved \(outputPath)")
@@ -40,7 +59,7 @@ command(
             exit(1)
         }
     } catch {
-        print("Error while converting scene: \(error.localizedDescription)")
+        print("Error: \(error.localizedDescription)")
         exit(1)
     }
     
