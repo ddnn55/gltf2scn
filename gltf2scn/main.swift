@@ -52,7 +52,11 @@ command(
                     print("Usage warning: found \(potentialParentNodes.count) nodes named \(mergeParentNode) in \(path). Will use the first one we found.")
                 }
                 let parentNode = potentialParentNodes[0]
-                parentNode.addChildNode(mergeScene.rootNode)
+                
+                mergeScene.rootNode.childNodes.forEach { node in
+                    parentNode.addChildNode(node)
+                }
+                
             }
             catch {
                 print("Error while loading \(mergePath). Does it exist? Is it a valid SceneKit scene?")
