@@ -17,6 +17,7 @@ let chunkTypeBIN = 0x004E4942 // "BIN"
 
 public class GLTFUnarchiver {
     private var directoryPath: URL? = nil
+    private var outputDirectoryPath: URL? = nil
     private var json: GLTFGlTF! = nil
     private var bin: Data?
     
@@ -38,13 +39,14 @@ public class GLTFUnarchiver {
     // An array of Image or URL types
     private var images: [Any?] = []
     private var maxAnimationDuration: CFTimeInterval = 0.0
+    private var extractEmbeddedImages: Bool = false
     private var embedExternalImages: Bool = true
     
     #if !os(watchOS)
         private var workingAnimationGroup: CAAnimationGroup! = nil
     #endif
     
-    convenience public init(path: String, extensions: [String:Codable.Type]? = nil, embedExternalImages: Bool = true) throws {
+    convenience public init(path: String, extensions: [String:Codable.Type]? = nil, embedExternalImages: Bool = true, extractEmbeddedImages: Bool = false, outputDirectoryPath: String? = nil) throws {
         var url: URL?
         if let mainPath = Bundle.main.path(forResource: path, ofType: "") {
             url = URL(fileURLWithPath: mainPath)
@@ -54,17 +56,25 @@ public class GLTFUnarchiver {
         guard let _url = url else {
             throw URLError(.fileDoesNotExist)
         }
-        try self.init(url: _url, extensions: extensions, embedExternalImages: embedExternalImages)
+        try self.init(url: _url, extensions: extensions, embedExternalImages: embedExternalImages, extractEmbeddedImages: extractEmbeddedImages, outputDirectoryPath: outputDirectoryPath)
     }
     
-    convenience public init(url: URL, extensions: [String:Codable.Type]? = nil, embedExternalImages: Bool = true) throws {
+    convenience public init(url: URL, extensions: [String:Codable.Type]? = nil, embedExternalImages: Bool = true, extractEmbeddedImages: Bool = false, outputDirectoryPath: String? = nil) throws {
         let data = try Data(contentsOf: url)
-        try self.init(data: data, extensions: extensions, embedExternalImages: embedExternalImages)
+        try self.init(data: data, extensions: extensions, embedExternalImages: embedExternalImages, extractEmbeddedImages: extractEmbeddedImages, outputDirectoryPath: outputDirectoryPath)
         self.directoryPath = url.deletingLastPathComponent()
     }
     
-    public init(data: Data, extensions: [String:Codable.Type]? = nil, embedExternalImages: Bool = true) throws {
+    public init(data: Data, extensions: [String:Codable.Type]? = nil, embedExternalImages: Bool = true, extractEmbeddedImages: Bool = false, outputDirectoryPath: String? = nil) throws {
         self.embedExternalImages = embedExternalImages
+        self.extractEmbeddedImages = extractEmbeddedImages
+        
+        if let _outputDirectoryPath = outputDirectoryPath {
+            self.outputDirectoryPath = URL(fileURLWithPath: _outputDirectoryPath)
+        }
+        
+        print("GLTFUnarchiver: self.embedExternalImages = ", self.embedExternalImages)
+        print("GLTFUnarchiver: self.extractEmbeddedImages = ", self.extractEmbeddedImages)
         
         let decoder = JSONDecoder()
         var _extensions = extensionList
@@ -797,7 +807,13 @@ public class GLTFUnarchiver {
                 guard let data = Data(base64Encoded: base64Str) else {
                     throw GLTFUnarchiveError.Unknown("loadImage: cannot convert the base64 string to Data")
                 }
-                image = try loadImageData(from: data)
+                if (self.extractEmbeddedImages) {
+                    // Write the base64-encoded data to a file instead
+                    print("Attempting to save base64-encoded image to file...")
+                    image = try saveImageDataToFile(from: data, path: self.outputDirectoryPath ?? self.directoryPath, name: glImage.name, mimeType: glImage.mimeType)
+                } else {
+                    image = try loadImageData(from: data)
+                }
             } else {
                 let url = URL(fileURLWithPath: uri, relativeTo: self.directoryPath)
                 // Even if we shouldn't embed external images, try loading the image file for now
@@ -808,7 +824,13 @@ public class GLTFUnarchiver {
             }
         } else if let bufferViewIndex = glImage.bufferView {
             let bufferView = try self.loadBufferView(index: bufferViewIndex)
-            image = try loadImageData(from: bufferView)
+            
+            if (self.extractEmbeddedImages) {
+                print("Attempting to save bufferView embedded image to file...")
+                image = try saveImageDataToFile(from: bufferView, path: self.outputDirectoryPath ?? self.directoryPath, name: glImage.name, mimeType: glImage.mimeType)
+            } else {
+                image = try loadImageData(from: bufferView)
+            }
         }
         
         guard let _image = image else {

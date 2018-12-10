@@ -16,22 +16,22 @@ public class GLTFSceneSource : SCNSceneSource {
         super.init()
     }
     
-    public convenience init(path: String, options: [SCNSceneSource.LoadingOption : Any]? = nil, extensions: [String:Codable.Type]? = nil, embedExternalImages: Bool = true) throws {
+    public convenience init(path: String, options: [SCNSceneSource.LoadingOption : Any]? = nil, extensions: [String:Codable.Type]? = nil, embedExternalImages: Bool = true, extractEmbeddedImages: Bool = false, outputDirectoryPath: String? = nil) throws {
         self.init()
         
-        let loader = try GLTFUnarchiver(path: path, extensions: extensions, embedExternalImages: embedExternalImages)
+        let loader = try GLTFUnarchiver(path: path, extensions: extensions, embedExternalImages: embedExternalImages, extractEmbeddedImages: extractEmbeddedImages, outputDirectoryPath: outputDirectoryPath)
         self.loader = loader
     }
     
     public override convenience init(url: URL, options: [SCNSceneSource.LoadingOption : Any]? = nil) {
-        self.init(url: url, options: options, extensions: nil, embedExternalImages: true)
+        self.init(url: url, options: options, extensions: nil, embedExternalImages: true, extractEmbeddedImages: true)
     }
     
-    public convenience init(url: URL, options: [SCNSceneSource.LoadingOption : Any]?, extensions: [String:Codable.Type]?, embedExternalImages: Bool = true) {
+    public convenience init(url: URL, options: [SCNSceneSource.LoadingOption : Any]?, extensions: [String:Codable.Type]?, embedExternalImages: Bool = true, extractEmbeddedImages: Bool = false, outputDirectoryPath: String? = nil) {
         self.init()
         
         do {
-            self.loader = try GLTFUnarchiver(url: url, extensions: extensions, embedExternalImages: embedExternalImages)
+            self.loader = try GLTFUnarchiver(url: url, extensions: extensions, embedExternalImages: embedExternalImages, extractEmbeddedImages: extractEmbeddedImages, outputDirectoryPath: outputDirectoryPath)
         } catch {
             print("\(error.localizedDescription)")
         }

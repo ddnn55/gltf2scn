@@ -22,17 +22,22 @@ command(
     Option<String>("template", default: "", description: "Path to a .scn file into which the .glb will be inserted"),
     Option<String>("template-parent-node", default: "", description: "Name of node in the template .scn under which the contents of the .glb will be added"),
     Flag("embed-external-images", default: true, description: "Whether or not external images should be embedded in the resulting .scn"),
+    Flag("extract-embedded-images", default: false, description: "Whether or not to extract embedded images and externally reference them in the resulting .scn"),
     Argument<String>("path", description: "Path to input .glb"),
     Argument<String>("outputPath", description: ".scn output path")
-) { templatePath, templateParentNode, embedExternalImages, path, outputPath in
-    print("embedExternalImages", embedExternalImages)
+) { templatePath, templateParentNode, embedExternalImages, extractEmbeddedImages, path, outputPath in
+    print("embedExternalImages:", embedExternalImages)
+    print("extractEmbeddedImages:", embedExternalImages)
 //    let exportDelegate = ExportDelegate()
+    
+    let outputDirectoryPath = URL(fileURLWithPath: outputPath).deletingLastPathComponent().path
+    print("outputDirectoryPath is '\(outputDirectoryPath)'")
     
     var scene: SCNScene
     var templateScene = SCNScene()
     var parentNode: SCNNode
     do {
-        let sceneSource = try GLTFSceneSource(path: path, embedExternalImages: embedExternalImages)
+        let sceneSource = try GLTFSceneSource(path: path, embedExternalImages: embedExternalImages, extractEmbeddedImages: extractEmbeddedImages, outputDirectoryPath: outputDirectoryPath)
         scene = try sceneSource.scene()
         
         if templatePath != "" {
