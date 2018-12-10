@@ -21,17 +21,18 @@ import SceneKit
 command(
     Option<String>("template", default: "", description: "Path to a .scn file into which the .glb will be inserted"),
     Option<String>("template-parent-node", default: "", description: "Name of node in the template .scn under which the contents of the .glb will be added"),
+    Flag("embed-external-images", default: true, description: "Whether or not external images should be embedded in the resulting .scn"),
     Argument<String>("path", description: "Path to input .glb"),
     Argument<String>("outputPath", description: ".scn output path")
-) { templatePath, templateParentNode, path, outputPath in
-    
+) { templatePath, templateParentNode, embedExternalImages, path, outputPath in
+    print("embedExternalImages", embedExternalImages)
 //    let exportDelegate = ExportDelegate()
     
     var scene: SCNScene
     var templateScene = SCNScene()
     var parentNode: SCNNode
     do {
-        let sceneSource = try GLTFSceneSource(path: path)
+        let sceneSource = try GLTFSceneSource(path: path, embedExternalImages: embedExternalImages)
         scene = try sceneSource.scene()
         
         if templatePath != "" {
