@@ -7,6 +7,7 @@
 //  Copyright © 2017 DarkHorse. All rights reserved.
 //
 
+import Foundation
 import SceneKit
 import SpriteKit
 import CoreGraphics
@@ -211,6 +212,54 @@ func loadImageData(from data: Data) throws -> Image? {
         }
     #endif
     return Image(data: data)
+}
+
+func saveImageDataToFile(from data: Data, path: URL?, name: String?, mimeType: String?) throws -> String {
+    // Determine file basename
+    /** @see https://www.hackingwithswift.com/example-code/language/how-to-convert-data-to-a-string */
+    let dataStr = String(decoding: data, as: UTF8.self)
+    var basename = SHA256(dataStr).digestString();
+    if let _name = name {
+        basename = "\(_name)_\(basename)"
+    }
+    
+    // Determine file extension
+    var ext: String
+    
+    switch mimeType {
+    case "image/jpeg":
+        ext = ".jpg"
+    case "image/png":
+        ext = ".png"
+    default:
+        ext = ""
+    }
+    
+    let filename = "\(String(describing: basename))\(ext)"
+    print("Attempting to write file '\(filename)'...")
+    
+    let fileManager = FileManager()
+    
+    var outDir: URL;
+    if let _path = path {
+        outDir = _path
+    } else {
+        do {
+        outDir = try fileManager.url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: URL(fileURLWithPath: fileManager.currentDirectoryPath), create: true)
+        } catch {
+            throw GLTFUnarchiveError.Unknown("saveImageDataToFile: could not create a temp folder")
+        }
+    }
+    
+    // Write the file to disk already
+    let writePath = outDir.appendingPathComponent(filename, isDirectory: false).path
+    
+    guard fileManager.createFile(atPath: writePath, contents: data) else {
+        throw GLTFUnarchiveError.Unknown("saveImageDataToFile: could not write to file path '\(writePath)'")
+    }
+    
+    print("Wrote file '\(writePath)'")
+    return writePath
 }
 
 /*
