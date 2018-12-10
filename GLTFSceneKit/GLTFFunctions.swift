@@ -235,7 +235,7 @@ func saveImageDataToFile(from data: Data, path: URL?, name: String?, mimeType: S
         ext = ""
     }
     
-    let filename = "\(String(describing: basename))\(ext)"
+    let filename = "\(basename)\(ext)"
     print("Attempting to write file '\(filename)'...")
     
     let fileManager = FileManager()
