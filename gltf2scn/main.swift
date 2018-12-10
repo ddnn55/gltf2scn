@@ -30,11 +30,14 @@ command(
     print("extractEmbeddedImages:", embedExternalImages)
 //    let exportDelegate = ExportDelegate()
     
+    let outputDirectoryPath = URL(fileURLWithPath: outputPath).deletingLastPathComponent().path
+    print("outputDirectoryPath is '\(outputDirectoryPath)'")
+    
     var scene: SCNScene
     var templateScene = SCNScene()
     var parentNode: SCNNode
     do {
-        let sceneSource = try GLTFSceneSource(path: path, embedExternalImages: embedExternalImages, extractEmbeddedImages: extractEmbeddedImages)
+        let sceneSource = try GLTFSceneSource(path: path, embedExternalImages: embedExternalImages, extractEmbeddedImages: extractEmbeddedImages, outputDirectoryPath: outputDirectoryPath)
         scene = try sceneSource.scene()
         
         if templatePath != "" {

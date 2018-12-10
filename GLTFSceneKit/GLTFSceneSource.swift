@@ -16,10 +16,10 @@ public class GLTFSceneSource : SCNSceneSource {
         super.init()
     }
     
-    public convenience init(path: String, options: [SCNSceneSource.LoadingOption : Any]? = nil, extensions: [String:Codable.Type]? = nil, embedExternalImages: Bool = true, extractEmbeddedImages: Bool = false) throws {
+    public convenience init(path: String, options: [SCNSceneSource.LoadingOption : Any]? = nil, extensions: [String:Codable.Type]? = nil, embedExternalImages: Bool = true, extractEmbeddedImages: Bool = false, outputDirectoryPath: String? = nil) throws {
         self.init()
         
-        let loader = try GLTFUnarchiver(path: path, extensions: extensions, embedExternalImages: embedExternalImages, extractEmbeddedImages: extractEmbeddedImages)
+        let loader = try GLTFUnarchiver(path: path, extensions: extensions, embedExternalImages: embedExternalImages, extractEmbeddedImages: extractEmbeddedImages, outputDirectoryPath: outputDirectoryPath)
         self.loader = loader
     }
     
@@ -27,11 +27,11 @@ public class GLTFSceneSource : SCNSceneSource {
         self.init(url: url, options: options, extensions: nil, embedExternalImages: true, extractEmbeddedImages: true)
     }
     
-    public convenience init(url: URL, options: [SCNSceneSource.LoadingOption : Any]?, extensions: [String:Codable.Type]?, embedExternalImages: Bool = true, extractEmbeddedImages: Bool = false) {
+    public convenience init(url: URL, options: [SCNSceneSource.LoadingOption : Any]?, extensions: [String:Codable.Type]?, embedExternalImages: Bool = true, extractEmbeddedImages: Bool = false, outputDirectoryPath: String? = nil) {
         self.init()
         
         do {
-            self.loader = try GLTFUnarchiver(url: url, extensions: extensions, embedExternalImages: embedExternalImages, extractEmbeddedImages: extractEmbeddedImages)
+            self.loader = try GLTFUnarchiver(url: url, extensions: extensions, embedExternalImages: embedExternalImages, extractEmbeddedImages: extractEmbeddedImages, outputDirectoryPath: outputDirectoryPath)
         } catch {
             print("\(error.localizedDescription)")
         }
